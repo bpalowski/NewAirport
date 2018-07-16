@@ -1,0 +1,14 @@
+<h1>Flights</h1>
+
+@foreach(var flight in Model)
+{
+  <br>
+<h4>@flight.GetFlightNumber()</h4>
+<h4>@flight.GetDepart()</h4>
+<h4>@flight.GetDepartId()</h4>
+<h4>@flight.GetArriveId()</h4>
+<h4>@flight.GetStatus()</h4>
+<h4>@flight.GetId()</h4>
+<br>
+}
+<a href='/flights/new'>Add Flight</a>
