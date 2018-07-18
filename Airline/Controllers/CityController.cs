@@ -44,20 +44,20 @@ namespace Airport.Controllers
         Flight newFlight = new Flight(int.Parse(Request.Form["new-flight-number"]), Request.Form["new-depart-time"],int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-arrive-id"]), Request.Form["new-status"]);
         newFlight.Save();
 
-        City.AddNewFlight(int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-arrive-id"]));
+        City.AddNewFlight(int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-depart-id"]));
 
     //  City.AddNewFlight(newFlight);
     //    List<Flight> allFlights = Flight.GetAll();
-        List<Flight> allFlight = City.GetFlightsByCity(int.Parse(Request.Form["new-depart-id"]);
+        List<Flight> allFlight = City.GetFlightsByCity(int.Parse(Request.Form["new-depart-id"]));
         return View("flights", allFlight);
     }
 
     [HttpGet("/flights/{id}/all")]
     public ActionResult flights(int id)
     {
-    List<Flight> allFlight = City.GetFlightsByCity(id);
+    //List<Flight> allFlight = City.GetFlightsByCity(id);
 
-      return View(allFlight);
+      return View(City.GetFlightsByCity(id));
 //City.GetFlightsByCity(id)
     }
 
