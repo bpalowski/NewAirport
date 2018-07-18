@@ -55,9 +55,9 @@ namespace Airport.Controllers
     [HttpGet("/flights/{id}/all")]
     public ActionResult flights(int id)
     {
-    //List<Flight> allFlight = City.GetFlightsByCity(id);
+    List<Flight> allFlight = City.GetFlightsByCity(id);
 
-      return View(City.GetFlightsByCity(id));
+      return View(allFlight);
 //City.GetFlightsByCity(id)
     }
 
