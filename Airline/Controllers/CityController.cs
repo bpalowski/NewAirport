@@ -30,6 +30,8 @@ namespace Airport.Controllers
           return View("Index", allCity);
       }
 
+
+/////////////
       [HttpGet("/flights/new")]
       public ActionResult CreateFlight()
       {
@@ -39,18 +41,24 @@ namespace Airport.Controllers
       [HttpPost("/flights")]
       public ActionResult CreateFFF()
       {
-        Flight newFlight = new Flight(int.Parse(Request.Form["new-flight-number"]), Request.Form["new-depart-time"], int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-arrive-id"]), Request.Form["new-status"]);
+        Flight newFlight = new Flight(int.Parse(Request.Form["new-flight-number"]), Request.Form["new-depart-time"],int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-arrive-id"]), Request.Form["new-status"]);
         newFlight.Save();
-        List<Flight> allFlights = Flight.GetAll();
-        return View("flights", allFlights);
+
+        City.AddNewFlight(int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-arrive-id"]));
+
+    //  City.AddNewFlight(newFlight);
+    //    List<Flight> allFlights = Flight.GetAll();
+        List<Flight> allFlight = City.GetFlightsByCity(int.Parse(Request.Form["new-depart-id"]);
+        return View("flights", allFlight);
     }
 
     [HttpGet("/flights/{id}/all")]
     public ActionResult flights(int id)
     {
-    //  List<Flight> allFlight = Flight.GetAll();
-      return View(Flight.FindFlightsByCity(id));
+    List<Flight> allFlight = City.GetFlightsByCity(id);
 
+      return View(allFlight);
+//City.GetFlightsByCity(id)
     }
 
   //   [HttpGet("/flights/{id}/all")]

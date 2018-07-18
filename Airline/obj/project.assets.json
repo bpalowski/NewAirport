@@ -9702,16 +9702,16 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/Guest/Desktop/Airline.Solution/Airline/Airline.csproj",
+      "projectUniqueName": "/Users/Guest/Desktop/Airline-project-CSharp/Airline/Airline.csproj",
       "projectName": "Airline",
-      "projectPath": "/Users/Guest/Desktop/Airline.Solution/Airline/Airline.csproj",
-      "outputPath": "/Users/Guest/Desktop/Airline.Solution/Airline/obj/",
+      "projectPath": "/Users/Guest/Desktop/Airline-project-CSharp/Airline/Airline.csproj",
+      "outputPath": "/Users/Guest/Desktop/Airline-project-CSharp/Airline/obj/",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
       "files": {
-        "lib/netcoreapp1.1/Airline.dll": "/Users/Guest/Desktop/Airline.Solution/Airline/bin/placeholder/netcoreapp1.1/Airline.dll"
+        "lib/netcoreapp1.1/Airline.dll": "/Users/Guest/Desktop/Airline-project-CSharp/Airline/bin/placeholder/netcoreapp1.1/Airline.dll"
       },
       "frameworks": {
         "netcoreapp1.1": {
