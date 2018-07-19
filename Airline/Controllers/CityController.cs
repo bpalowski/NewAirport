@@ -44,7 +44,7 @@ namespace Airport.Controllers
         Flight newFlight = new Flight(int.Parse(Request.Form["new-flight-number"]), Request.Form["new-depart-time"],int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-arrive-id"]), Request.Form["new-status"]);
         newFlight.Save();
 
-        City.AddNewFlight(int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-depart-id"]));
+        City.AddNewFlight(int.Parse(Request.Form["new-depart-id"]), int.Parse(Request.Form["new-flight-number"]));
 
     //  City.AddNewFlight(newFlight);
     //    List<Flight> allFlights = Flight.GetAll();

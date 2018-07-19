@@ -189,8 +189,6 @@ public static City Find(int id)
                   flight_number.Value = flightNumber;
                   cmd.Parameters.Add(flight_number);
 
-
-
                   // MySqlParameter flight_id = new MySqlParameter();
                   // flight_id.ParameterName = "@FlightId";
                   // flight_id.Value = newFlight.GetId();
@@ -218,7 +216,7 @@ public static City Find(int id)
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
 
-            List<int> flightNumbers = new List<int> {};
+            List<int> flightNumbers = new List<int> {};//////////////
             while(rdr.Read())
             {
                 int flightNumber = rdr.GetInt32(0);
@@ -227,26 +225,26 @@ public static City Find(int id)
             rdr.Dispose();
 
             List<Flight> flight = new List<Flight> {};
-            foreach (int flightNumber in flightNumbers)
+            foreach (int flightNum in flightNumbers)
             {
                 var flightQuery = conn.CreateCommand() as MySqlCommand;
                 flightQuery.CommandText = @"SELECT * FROM flights WHERE flight_number = @FlightNumber;";
 
                 MySqlParameter flightNumberParameter = new MySqlParameter();
                 flightNumberParameter.ParameterName = "@FlightNumber";
-                flightNumberParameter.Value = flightNumber;
+                flightNumberParameter.Value = flightNum;
                 flightQuery.Parameters.Add(flightNumberParameter);
 
                 var flightQueryRdr = flightQuery.ExecuteReader() as MySqlDataReader;
                 while(flightQueryRdr.Read())
                 {
                     int newFlightId = flightQueryRdr.GetInt32(0);
-
                     int newFlightNumber = flightQueryRdr.GetInt32(1);
                     string newFlightTime = flightQueryRdr.GetString(2);
                     int newFlightDepartId = flightQueryRdr.GetInt32(3);
                     int newFlightArriveId = flightQueryRdr.GetInt32(4);
                     string newStatus = flightQueryRdr.GetString(5);
+
                     Flight foundFlight = new Flight(newFlightNumber, newFlightTime, newFlightDepartId, newFlightArriveId, newStatus, newFlightId);
                     flight.Add(foundFlight);
                 }
