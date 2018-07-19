@@ -1,12 +1,14 @@
 <h1>Cites</h1>
-
+<ul>
 @foreach(var city in Model)
 {
-<p>@city.GetCity()</p>
-<p>@city.GetState()</p>
-<p>@city.GetId()</p>
+<li>
+<p>City: @city.GetCity()</p>
+<p>State: @city.GetState()</p>
+<!-- <p>@city.GetId()</p> -->
 <a href='/flights/@city.GetId()/all/'>See flights</a>
-<br>
+<p>---------------------------------------</p>
+</li>
 }
-
+</ul>
 <a href='/cities/new'>Add city</a>

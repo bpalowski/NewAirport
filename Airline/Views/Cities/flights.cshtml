@@ -1,14 +1,16 @@
-<h1>Flights</h1>
-
-@foreach(var flight in Model)
+<h1>Flights from @Model["CityName"].GetCity()</h1>
+<p>-------------------------------------------</p>
+@foreach(var flight in @Model["FindFlightsByCity"])
 {
-  <br>
-<h4>@flight.GetFlightNumber()</h4>
-<h4>@flight.GetDepartTime()</h4>
-<h4>@flight.GetDepartId()</h4>
-<h4>@flight.GetArriveId()</h4>
-<h4>@flight.GetStatus()</h4>
-<h4>@flight.GetId()</h4>
-<br>
+<h4>Flight Number: @flight.GetFlightNumber()</h4>
+<h4>Depart Time: @flight.GetDepartTime()</h4>
+<!-- <h4>@flight.GetDepartId()</h4>
+<h4>@flight.GetArriveId()</h4> -->
+<h4>Flight Status: @flight.GetStatus()</h4>
+<!-- <h4>@flight.GetId()</h4> -->
+<p>-------------------------------------------</p>
 }
-<a href='/flights/new'>Add Flight</a>
+<ul>
+<li><a href='/flights/new'>Add Flight</a></li>
+<li><a href='/cities'>Return<a/></li>
+</ul>

@@ -1,21 +1,28 @@
 <h1>New Flight</h1>
 <h3>Add a new flight:</h3>
 <form action="/flights" method="post">
+<ul>
 
-  <label for="new-flight-number">Flight Number:</label>
-  <input id="new-flight-number" name="new-flight-number" type="text">
 
-  <label for="new-depart-time">Departure time</label>
-  <input id="new-depart-time" name="new-depart-time" type="text">
 
-  <label for="new-depart-id">Departure ID</label>
-  <input id="new-depart-id" name="new-depart-id" type="text">
-
-  <label for="new-arrive-id">Arrival ID</label>
-  <input id="new-arrive-id" name="new-arrive-id" type="text">
-
-  <label for="new-status">Flight Status</label>
-  <input id="new-status" name="new-status" type="text">
+  <li><label for="new-flight-number">Flight Number:</label>
+  <input id="new-flight-number" name="new-flight-number" type="text"></li>
+  <br>
+  <li><label for="new-depart-time">Departure Time:</label>
+  <input id="new-depart-time" name="new-depart-time" type="text"></li>
+  <br>
+  <li><label for="new-depart-id">Departure ID:</label>
+  <input id="new-depart-id" name="new-depart-id" type="text"></li>
+  <br>
+  <li><label for="new-arrive-id">Arrival ID:</label>
+  <input id="new-arrive-id" name="new-arrive-id" type="text"></li>
+  <br>
+  <li><label for="new-status">Flight Status:</label>
+  <input id="new-status" name="new-status" type="text"></li>
+<br>
 
   <button type="submit">Submit</button>
+
+    </ul>
 </form>
+<a href='/cities'>Return<a/>

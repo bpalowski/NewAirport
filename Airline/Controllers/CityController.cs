@@ -55,11 +55,21 @@ namespace Airport.Controllers
     [HttpGet("/flights/{id}/all")]
     public ActionResult flights(int id)
     {
-    List<Flight> allFlight = City.GetFlightsByCity(id);
 
-      return View(allFlight);
+      Dictionary<string, object> model = new Dictionary<string, object>();
+
+      List<Flight> allFlight = City.GetFlightsByCity(id);
+      City allCity = City.Find(id);
+
+      model.Add("FindFlightsByCity", allFlight);
+      model.Add("CityName", allCity);
+
+
+
+      return View(model);
 //City.GetFlightsByCity(id)
     }
+
 
   //   [HttpGet("/flights/{id}/all")]
   //   public ActionResult CreateFlightsByCity()

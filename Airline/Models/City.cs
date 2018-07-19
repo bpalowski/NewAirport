@@ -202,62 +202,100 @@ public static City Find(int id)
                   }
               }
 
-          public static List<Flight> GetFlightsByCity(int id)
-        {
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT flight_number FROM cities_flights WHERE city_id = @CityId;";
+              public static List<Flight> GetFlightsByCity(int id)
+              {
+                MySqlConnection conn = DB.Connection();
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+                cmd.CommandText = @"SELECT flights.* FROM cities
+                JOIN cities_flights ON (cities.id = cities_flights.city_id)
+                JOIN flights ON (cities_flights.flight_number = flights.flight_number)
+                WHERE cities.id = @CityId;";
 
-            MySqlParameter cityIdParameter = new MySqlParameter();
-            cityIdParameter.ParameterName = "@CityId";
-            cityIdParameter.Value = id;
-            cmd.Parameters.Add(cityIdParameter);
+                MySqlParameter cityIdParameter = new MySqlParameter();
+                cityIdParameter.ParameterName = "@CityId";
+                cityIdParameter.Value = id;
+                cmd.Parameters.Add(cityIdParameter);
 
-            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+                MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+                List<Flight> flights = new List<Flight>{};
 
-            List<int> flightNumbers = new List<int> {};//////////////
-            while(rdr.Read())
-            {
-                int flightNumber = rdr.GetInt32(0);
-                flightNumbers.Add(flightNumber);
-            }
-            rdr.Dispose();
-
-            List<Flight> flight = new List<Flight> {};
-            foreach (int flightNum in flightNumbers)
-            {
-                var flightQuery = conn.CreateCommand() as MySqlCommand;
-                flightQuery.CommandText = @"SELECT * FROM flights WHERE flight_number = @FlightNumber;";
-
-                MySqlParameter flightNumberParameter = new MySqlParameter();
-                flightNumberParameter.ParameterName = "@FlightNumber";
-                flightNumberParameter.Value = flightNum;
-                flightQuery.Parameters.Add(flightNumberParameter);
-
-                var flightQueryRdr = flightQuery.ExecuteReader() as MySqlDataReader;
-                while(flightQueryRdr.Read())
+                while(rdr.Read())
                 {
-                    int newFlightId = flightQueryRdr.GetInt32(0);
-                    int newFlightNumber = flightQueryRdr.GetInt32(1);
-                    string newFlightTime = flightQueryRdr.GetString(2);
-                    int newFlightDepartId = flightQueryRdr.GetInt32(3);
-                    int newFlightArriveId = flightQueryRdr.GetInt32(4);
-                    string newStatus = flightQueryRdr.GetString(5);
+                  int flightId = rdr.GetInt32(0);
+                  int flightNumber = rdr.GetInt32(1);
+                  string departTime = rdr.GetString(2);
+                  int departId = rdr.GetInt32(3);
+                  int arriveId = rdr.GetInt32(4);
+                  string status = rdr.GetString(5);
 
-                    Flight foundFlight = new Flight(newFlightNumber, newFlightTime, newFlightDepartId, newFlightArriveId, newStatus, newFlightId);
-                    flight.Add(foundFlight);
+                  Flight newFlight = new Flight(flightNumber, departTime, departId, arriveId, status, flightId);
+                  flights.Add(newFlight);
                 }
-                flightQueryRdr.Dispose();
-            }
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-            return flight;
-             }
+                conn.Close();
+                if (conn != null)
+                {
+                  conn.Dispose();
+                }
+                return flights;
+              }
 
+        //   public static List<Flight> GetFlightsByCity(int id)
+        // {
+        //     MySqlConnection conn = DB.Connection();
+        //     conn.Open();
+        //     var cmd = conn.CreateCommand() as MySqlCommand;
+        //     cmd.CommandText = @"SELECT flight_number FROM cities_flights WHERE city_id = @CityId;";
+        //
+        //     MySqlParameter cityIdParameter = new MySqlParameter();
+        //     cityIdParameter.ParameterName = "@CityId";
+        //     cityIdParameter.Value = id;
+        //     cmd.Parameters.Add(cityIdParameter);
+        //
+        //     var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        //
+        //     List<int> flightNumbers = new List<int> {};//////////////
+        //     while(rdr.Read())
+        //     {
+        //         int flightNumber = rdr.GetInt32(0);
+        //         flightNumbers.Add(flightNumber);
+        //     }
+        //     rdr.Dispose();
+        //
+        //     List<Flight> flight = new List<Flight> {};
+        //     foreach (int flightNum in flightNumbers)
+        //     {
+        //         var flightQuery = conn.CreateCommand() as MySqlCommand;
+        //         flightQuery.CommandText = @"SELECT * FROM flights WHERE flight_number = @FlightNumber;";
+        //
+        //         MySqlParameter flightNumberParameter = new MySqlParameter();
+        //         flightNumberParameter.ParameterName = "@FlightNumber";
+        //         flightNumberParameter.Value = flightNum;
+        //         flightQuery.Parameters.Add(flightNumberParameter);
+        //
+        //         var flightQueryRdr = flightQuery.ExecuteReader() as MySqlDataReader;
+        //         while(flightQueryRdr.Read())
+        //         {
+        //             int newFlightId = flightQueryRdr.GetInt32(0);
+        //             int newFlightNumber = flightQueryRdr.GetInt32(1);
+        //             string newFlightTime = flightQueryRdr.GetString(2);
+        //             int newFlightDepartId = flightQueryRdr.GetInt32(3);
+        //             int newFlightArriveId = flightQueryRdr.GetInt32(4);
+        //             string newStatus = flightQueryRdr.GetString(5);
+        //
+        //             Flight foundFlight = new Flight(newFlightNumber, newFlightTime, newFlightDepartId, newFlightArriveId, newStatus, newFlightId);
+        //             flight.Add(foundFlight);
+        //         }
+        //         flightQueryRdr.Dispose();
+        //     }
+        //     conn.Close();
+        //     if (conn != null)
+        //     {
+        //         conn.Dispose();
+        //     }
+        //     return flight;
+        //      }
+        //
 
         public void Delete()
         {
